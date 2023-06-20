@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>stopwatch</title>
+    <link rel="stylesheet" href="./stopwatch.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Racing+Sans+One&display=swap" rel="stylesheet">
+
+</head>
+<body>
+    <div class="box">
+        <h3>Stop Clock in JavaScript</h3>
+        <div class="frame">
+          <div class="hrs">00</div>
+          <div class="colon">:</div>
+          <div class="min">00</div>
+          <div class="colon">:</div>
+          <div class="sec">00</div>   
+          <div class="colon">:</div>
+          <div class="ms">00</div>
+        </div>
+        <div class="buttons">
+          <button class="start">Start</button>
+          <button class="stop">Stop</button>
+          <button class="reset">Reset</button>
+        </div>
+      </div>
+
+
+      <script>
+        let btnstart = document.querySelector('.start');
+let btnstop = document.querySelector('.stop');
+let btnreset = document.querySelector('.reset');
+let hrs=min=sec=ms=0,startTimer;
+
+btnstart.addEventListener('click',()=>{
+    btnstart.classList.add('start-active')
+    btnstop.classList.remove('stop-active')
+    startTimer=setInterval(() => {
+        ms++;
+        if(ms==100){
+            sec++;
+            ms=0;
+        }
+        if(sec==60){
+            min++;
+            sec=0;
+        }
+        if(min==60){
+            hrs++;
+            min=0;
+        }
+        displayTime();
+    }, 10);
+});
+
+btnstop.addEventListener('click',()=>{
+    clearInterval(startTimer);
+    btnstart.classList.remove('start-active')
+    btnstop.classList.add('stop-active')
+});
+
+btnreset.addEventListener('click',()=>{
+    hrs=min=sec=ms=0;
+    clearInterval(startTimer);
+    displayTime();
+    btnstart.classList.remove('start-active')
+    btnstop.classList.remove('stop-active')
+});
+
+function displayTime(){
+    document.querySelector('.hrs').innerHTML= hrs<10? '0'+hrs :hrs;
+    document.querySelector('.min').innerHTML= min<10? '0'+min :min;
+    document.querySelector('.sec').innerHTML= sec<10? '0'+sec :sec;
+    document.querySelector('.ms') .innerHTML= ms<10? '0'+ms :ms;
+}
+      </script>
+</body>
+</html>
